@@ -32,7 +32,7 @@ function TechMarquee() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] overflow-hidden pb-16 opacity-20 grayscale sm:pb-24 sm:opacity-25"
+      className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] overflow-hidden pb-16 opacity-30 grayscale sm:pb-24 sm:opacity-25"
       style={{
         maskImage:
           "linear-gradient(to top, transparent 6%, black 38%, black 78%, transparent 100%)",
@@ -72,7 +72,7 @@ function ScrollHint() {
 
   return (
     <motion.div
-      className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 sm:bottom-10 sm:block"
+      className="absolute bottom-5 left-1/2 z-10 -translate-x-1/2 sm:bottom-10"
       initial={false}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, delay: 1, ease }}

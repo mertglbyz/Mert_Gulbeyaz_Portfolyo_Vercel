@@ -66,7 +66,7 @@ function BentoCard({
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.45, ease }}
       className={cn(
-        "relative overflow-hidden rounded-[1.5rem] border border-white/5 bg-white/[0.02] p-6 backdrop-blur-xl sm:rounded-[2rem] sm:p-10",
+        "relative overflow-hidden rounded-[1.5rem] border border-white/5 bg-white/[0.04] p-6 sm:rounded-[2rem] sm:bg-white/[0.02] sm:p-10 sm:backdrop-blur-xl",
         "transition-colors duration-500 hover:border-accent/40 hover:bg-white/[0.045]",
         featured && "h-full",
         className,
@@ -101,11 +101,6 @@ function SkillChip({ name, index }: { name: SkillName; index: number }) {
       whileInView={{
         opacity: 1,
         y: 0,
-        boxShadow: [
-          "0 0 0px rgba(91,140,255,0)",
-          "0 0 18px rgba(91,140,255,0.32)",
-          "0 0 0px rgba(91,140,255,0)",
-        ],
       }}
       whileHover={{
         borderColor: "rgba(138,176,255,0.55)",
@@ -118,7 +113,7 @@ function SkillChip({ name, index }: { name: SkillName; index: number }) {
         delay: 0.05 * index,
         ease,
       }}
-      className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-2 text-[13px] tracking-wide text-foreground/90 backdrop-blur-md transition-[border-color,background-color,box-shadow] duration-300 hover:border-accent/50 hover:bg-accent/10 hover:shadow-[0_0_22px_rgba(91,140,255,0.38)]"
+      className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-2 text-[13px] tracking-wide text-foreground/90 transition-[border-color,background-color,box-shadow] duration-300 hover:border-accent/50 hover:bg-accent/10 hover:shadow-[0_0_22px_rgba(91,140,255,0.38)]"
     >
       <span className="text-accent-soft">{skillIcons[name]}</span>
       {name}
@@ -191,7 +186,7 @@ export function About() {
                   Yazılım Mühendisi
                 </h3>
               </div>
-              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-xs tracking-wide text-zinc-300 backdrop-blur-md">
+              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-xs tracking-wide text-zinc-300">
                 <svg
                   viewBox="0 0 16 16"
                   className="h-3.5 w-3.5 text-accent-soft"
@@ -243,7 +238,7 @@ export function About() {
               <a
                 href="/Mert_Gulbeyaz_CV_2026_.pdf"
                 download="Mert_Gulbeyaz_CV_2026.pdf"
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm tracking-wide text-zinc-200 backdrop-blur-md transition-colors duration-300 hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm tracking-wide text-zinc-200 transition-colors duration-300 hover:bg-white/10"
               >
                 <svg
                   viewBox="0 0 16 16"

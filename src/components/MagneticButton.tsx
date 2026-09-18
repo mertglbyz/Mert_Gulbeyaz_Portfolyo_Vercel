@@ -38,7 +38,7 @@ export function MagneticButton({
           scrollToHash(href, lenis);
         }}
         className={cn(
-          "group inline-flex origin-center items-center gap-3 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-[11px] tracking-[0.22em] text-white uppercase backdrop-blur-md transition-colors duration-300 hover:bg-white/10 sm:px-8 sm:py-4 sm:text-[12px] sm:tracking-[0.28em]",
+          "group inline-flex origin-center items-center gap-3 rounded-full border border-white/10 bg-white/10 px-6 py-3.5 text-[11px] tracking-[0.22em] text-white uppercase transition-colors duration-300 hover:bg-white/15 sm:px-8 sm:py-4 sm:text-[12px] sm:tracking-[0.28em] sm:backdrop-blur-md",
           className,
         )}
       >

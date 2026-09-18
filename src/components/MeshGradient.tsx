@@ -1,35 +1,9 @@
 "use client";
 
-import { useReducedMotion, motion } from "framer-motion";
-import { useMounted } from "@/lib/use-mounted";
-import { useMediaQuery } from "@/lib/use-media-query";
-
-const orbs = [
-  {
-    className:
-      "absolute top-[-18%] left-[8%] h-[58vmin] w-[58vmin] rounded-full bg-accent/22 blur-[110px]",
-    animate: { x: [0, 70, -30, 0], y: [0, 50, 90, 0], scale: [1, 1.18, 0.92, 1] },
-    duration: 24,
-  },
-  {
-    className:
-      "absolute top-[6%] right-[-8%] h-[52vmin] w-[52vmin] rounded-full bg-accent-glow/18 blur-[120px]",
-    animate: { x: [0, -90, 20, 0], y: [0, 70, -20, 0], scale: [1, 0.9, 1.12, 1] },
-    duration: 28,
-  },
-  {
-    className:
-      "absolute bottom-[-16%] left-[28%] h-[48vmin] w-[48vmin] rounded-full bg-accent/12 blur-[100px]",
-    animate: { x: [0, 50, -60, 0], y: [0, -40, 20, 0], scale: [1, 1.1, 0.95, 1] },
-    duration: 26,
-  },
-];
+import { useReducedMotion } from "framer-motion";
 
 export function MeshGradient() {
-  const mounted = useMounted();
   const reduceMotion = useReducedMotion();
-  const desktop = useMediaQuery("(min-width: 1024px)");
-  const live = mounted && desktop && !reduceMotion;
 
   return (
     <div
@@ -48,20 +22,20 @@ export function MeshGradient() {
         }}
       />
 
-      {live
-        ? orbs.map((orb, index) => (
-            <motion.div
-              key={index}
-              className={orb.className}
-              animate={orb.animate}
-              transition={{
-                duration: orb.duration,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          ))
-        : null}
+      <div
+        className={
+          reduceMotion
+            ? "absolute top-[-12%] left-[6%] h-[42vmin] w-[42vmin] rounded-full bg-accent/28 blur-3xl lg:h-[52vmin] lg:w-[52vmin]"
+            : "mesh-orb absolute top-[-12%] left-[6%] h-[42vmin] w-[42vmin] rounded-full bg-accent/28 blur-3xl lg:h-[52vmin] lg:w-[52vmin]"
+        }
+      />
+      <div
+        className={
+          reduceMotion
+            ? "absolute top-[18%] right-[-12%] h-[36vmin] w-[36vmin] rounded-full bg-accent-glow/22 blur-3xl lg:h-[48vmin] lg:w-[48vmin]"
+            : "mesh-orb mesh-orb-delayed absolute top-[18%] right-[-12%] h-[36vmin] w-[36vmin] rounded-full bg-accent-glow/22 blur-3xl lg:h-[48vmin] lg:w-[48vmin]"
+        }
+      />
 
       <div
         className="absolute inset-0 hidden opacity-70 md:block"

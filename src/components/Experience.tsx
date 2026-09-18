@@ -11,6 +11,7 @@ import {
 } from "framer-motion";
 import { experiences, type ExperienceItem } from "@/data/experiences";
 import { cn } from "@/lib/cn";
+import { useMediaQuery } from "@/lib/use-media-query";
 import { useMounted } from "@/lib/use-mounted";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -83,7 +84,7 @@ function TimelineEntry({
         />
       </div>
 
-      <article className="mb-8 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl transition-[border-color,background-color,box-shadow,opacity,transform] duration-500 hover:border-accent/40 hover:bg-accent/[0.08] hover:shadow-[0_0_55px_-12px_rgba(91,140,255,0.55)] sm:mb-10 sm:p-7">
+      <article className="mb-8 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-5 transition-[border-color,background-color,box-shadow] duration-500 hover:border-accent/40 hover:bg-accent/[0.08] sm:mb-10 sm:bg-white/[0.03] sm:p-7 sm:backdrop-blur-xl sm:hover:shadow-[0_0_55px_-12px_rgba(91,140,255,0.55)]">
         <time className="font-mono text-[11px] tracking-[0.16em] text-accent/80 uppercase sm:hidden">
           {item.period}
         </time>
@@ -102,8 +103,11 @@ function TimelineEntry({
   );
 }
 
-export function Experience() {
-  const trackRef = useRef<HTMLDivElement>(null);
+function DesktopTimelineFill({
+  trackRef,
+}: {
+  trackRef: React.RefObject<HTMLDivElement | null>;
+}) {
   const mounted = useMounted();
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -116,6 +120,33 @@ export function Experience() {
     mass: 0.35,
   });
   const lineScale = useTransform(progress, [0, 1], [0, 1]);
+
+  return (
+    <motion.div
+      className="h-full origin-top bg-gradient-to-b from-accent via-accent to-accent-glow"
+      style={{ scaleY: !mounted || reduceMotion ? 1 : lineScale }}
+    />
+  );
+}
+
+function TimelineFill({
+  trackRef,
+}: {
+  trackRef: React.RefObject<HTMLDivElement | null>;
+}) {
+  const desktop = useMediaQuery("(min-width: 1024px)");
+
+  if (!desktop) {
+    return (
+      <div className="h-full origin-top bg-gradient-to-b from-accent via-accent to-accent-glow" />
+    );
+  }
+
+  return <DesktopTimelineFill trackRef={trackRef} />;
+}
+
+export function Experience() {
+  const trackRef = useRef<HTMLDivElement>(null);
 
   return (
     <section
@@ -145,10 +176,7 @@ export function Experience() {
             aria-hidden
             className="absolute top-8 bottom-8 left-2 w-px -translate-x-1/2 bg-white/10 sm:left-[calc(9.5rem+1.5rem+0.625rem)]"
           >
-            <motion.div
-              className="h-full origin-top bg-gradient-to-b from-accent via-accent to-accent-glow"
-              style={{ scaleY: !mounted || reduceMotion ? 1 : lineScale }}
-            />
+            <TimelineFill trackRef={trackRef} />
           </div>
 
           <ol className="relative">

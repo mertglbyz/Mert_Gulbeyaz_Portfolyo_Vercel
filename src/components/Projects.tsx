@@ -75,7 +75,7 @@ function ProjectSlide({
       />
 
       <div className="relative mx-auto grid w-full max-w-6xl gap-6 px-5 py-16 sm:gap-8 sm:px-8 sm:py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center lg:gap-12 lg:py-28">
-        <div className="relative h-[58vw] min-h-[240px] max-h-[420px] lg:h-[620px] lg:max-h-none">
+        <div className="relative h-[72vw] min-h-[280px] max-h-[480px] lg:h-[620px] lg:max-h-none">
           <p className="font-display pointer-events-none absolute -top-4 left-1 z-10 text-5xl leading-none text-white/12 sm:-top-5 sm:left-2 sm:text-8xl lg:text-9xl">
             {project.index}
           </p>
