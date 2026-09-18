@@ -10,10 +10,19 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const stack = [
   "REACT NATIVE",
   "TYPESCRIPT",
-  "PYTHON",
-  "DOCKER",
+  "JAVASCRIPT",
+  "EXPO",
+  "EAS BUILD",
   "SUPABASE",
+  "NODE.JS",
+  "PYTHON",
+  "PANDAS",
+  "SCIKIT-LEARN",
+  "SQL",
+  "DOCKER",
   "ORACLE CLOUD",
+  "GOOGLE CLOUD",
+  "AWS",
 ];
 
 function TechMarquee() {
@@ -23,7 +32,7 @@ function TechMarquee() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] overflow-hidden pb-20 opacity-25 grayscale sm:pb-24"
+      className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] overflow-hidden pb-16 opacity-20 grayscale sm:pb-24 sm:opacity-25"
       style={{
         maskImage:
           "linear-gradient(to top, transparent 6%, black 38%, black 78%, transparent 100%)",
@@ -41,7 +50,7 @@ function TechMarquee() {
         {copies.map((copy) => (
           <div
             key={copy}
-            className="flex items-center whitespace-nowrap font-sans text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl"
+            className="flex items-center whitespace-nowrap font-sans text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl"
           >
             {stack.map((item) => (
               <span key={`${copy}-${item}`} className="inline-flex items-center">
@@ -63,7 +72,7 @@ function ScrollHint() {
 
   return (
     <motion.div
-      className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2"
+      className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 sm:bottom-10 sm:block"
       initial={false}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, delay: 1, ease }}
@@ -95,11 +104,11 @@ export function Hero() {
     >
       <MeshGradient />
 
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-5 pt-20 pb-24 text-center sm:px-8 sm:pb-28">
-        <div className="flex flex-col items-center gap-8 md:gap-12">
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-5 pt-20 pb-20 text-center sm:px-8 sm:pb-28">
+        <div className="flex flex-col items-center gap-6 sm:gap-8 md:gap-12">
           <motion.h1
             aria-label="Mert Gülbeyaz"
-            className="font-sans text-7xl leading-[0.9] font-extrabold tracking-tighter text-white md:text-9xl"
+            className="font-sans text-5xl leading-[0.9] font-extrabold tracking-tighter text-white sm:text-7xl md:text-8xl lg:text-9xl"
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease }}
@@ -109,7 +118,7 @@ export function Hero() {
           </motion.h1>
 
           <motion.p
-            className="max-w-full px-1 text-sm tracking-[0.2em] text-zinc-400 uppercase md:text-[clamp(0.72rem,1.15vw,1rem)] md:whitespace-nowrap md:tracking-[0.18em] lg:tracking-[0.2em]"
+            className="max-w-[18.5rem] text-[0.7rem] leading-relaxed tracking-[0.14em] text-zinc-400 uppercase sm:max-w-xl sm:text-sm sm:tracking-[0.2em] md:max-w-none md:text-[clamp(0.72rem,1.15vw,1rem)] md:whitespace-nowrap md:tracking-[0.18em] lg:tracking-[0.2em]"
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.12, ease }}

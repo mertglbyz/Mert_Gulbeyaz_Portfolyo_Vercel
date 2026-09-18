@@ -18,6 +18,13 @@ export function Navbar() {
   });
 
   useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
     const ids = navLinks.map((link) => link.href.slice(1));
     const observer = new IntersectionObserver(
       (entries) => {
@@ -69,11 +76,11 @@ export function Navbar() {
           className={cn(
             "border-b transition-[background-color,border-color,backdrop-filter,box-shadow] duration-500",
             scrolled
-              ? "border-white/10 bg-black/45 shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-2xl"
-              : "border-transparent bg-transparent backdrop-blur-0",
+              ? "border-white/10 bg-black/55 shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl"
+              : "border-white/5 bg-black/40 backdrop-blur-md md:border-transparent md:bg-transparent md:backdrop-blur-0",
           )}
         >
-          <nav className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6">
+          <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-20 sm:px-6">
             <a
               href="#top"
               onClick={(event) => {

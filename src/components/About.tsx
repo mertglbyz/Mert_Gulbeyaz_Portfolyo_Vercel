@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { NetworkGraph } from "@/components/NetworkGraph";
 import { skillIcons, type SkillName } from "@/components/SkillIcons";
+import { useMediaQuery } from "@/lib/use-media-query";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -65,7 +66,7 @@ function BentoCard({
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.45, ease }}
       className={cn(
-        "relative overflow-hidden rounded-[2rem] border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl sm:p-10",
+        "relative overflow-hidden rounded-[1.5rem] border border-white/5 bg-white/[0.02] p-6 backdrop-blur-xl sm:rounded-[2rem] sm:p-10",
         "transition-colors duration-500 hover:border-accent/40 hover:bg-white/[0.045]",
         featured && "h-full",
         className,
@@ -76,8 +77,8 @@ function BentoCard({
         className={cn(
           "pointer-events-none absolute rounded-full blur-3xl",
           featured
-            ? "-top-24 -right-16 h-80 w-80 bg-[radial-gradient(circle_at_center,rgba(91,140,255,0.34)_0%,rgba(124,92,255,0.16)_42%,transparent_70%)]"
-            : "-top-16 -right-12 h-44 w-44 bg-[radial-gradient(circle_at_center,rgba(91,140,255,0.14)_0%,transparent_70%)]",
+            ? "hidden -top-24 -right-16 h-80 w-80 bg-[radial-gradient(circle_at_center,rgba(91,140,255,0.34)_0%,rgba(124,92,255,0.16)_42%,transparent_70%)] sm:block"
+            : "hidden -top-16 -right-12 h-44 w-44 bg-[radial-gradient(circle_at_center,rgba(91,140,255,0.14)_0%,transparent_70%)] sm:block",
         )}
       />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
@@ -96,7 +97,7 @@ function BentoCard({
 function SkillChip({ name, index }: { name: SkillName; index: number }) {
   return (
     <motion.span
-      initial={{ opacity: 0, y: 8 }}
+      initial={false}
       whileInView={{
         opacity: 1,
         y: 0,
@@ -146,18 +147,20 @@ function CardTitle({ children }: { children: ReactNode }) {
 }
 
 export function About() {
+  const showGraph = useMediaQuery("(min-width: 1024px)");
+
   return (
     <section
       id="hakkimda"
-      className="relative scroll-mt-24 px-5 py-24 sm:px-8 lg:py-32"
+      className="relative scroll-mt-24 px-5 py-16 sm:px-8 sm:py-24 lg:py-32"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-      <div className="pointer-events-none absolute top-1/3 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-accent/10 blur-[140px]" />
+      <div className="pointer-events-none absolute top-1/3 left-1/2 hidden h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-accent/10 blur-[140px] lg:block" />
 
       <div className="relative mx-auto max-w-6xl">
         <motion.div
           className="mb-10 sm:mb-14"
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.8 }}
           transition={{ duration: 0.7, ease }}
@@ -173,7 +176,7 @@ export function About() {
         <motion.div
           className="grid grid-cols-1 gap-5 md:grid-cols-6 lg:grid-cols-12 lg:grid-rows-[minmax(280px,auto)_minmax(280px,auto)_minmax(220px,auto)]"
           variants={container}
-          initial="hidden"
+          initial={false}
           whileInView="show"
           viewport={{ once: true, amount: 0.16, margin: "0px 0px -8% 0px" }}
         >
@@ -181,10 +184,10 @@ export function About() {
             featured
             className="flex h-full flex-col justify-start md:col-span-6 lg:col-span-7 lg:row-span-2"
           >
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
               <div>
                 <CardKicker>01 — Profil</CardKicker>
-                <h3 className="font-display mt-3 text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h3 className="font-display mt-3 text-2xl leading-tight tracking-tight text-foreground sm:text-3xl lg:text-4xl">
                   Yazılım Mühendisi
                 </h3>
               </div>
@@ -211,14 +214,14 @@ export function About() {
               </span>
             </div>
             <div className="space-y-5">
-              <p className="max-w-2xl text-lg leading-relaxed text-zinc-300">
+              <p className="max-w-2xl text-base leading-relaxed text-zinc-300 sm:text-lg">
                 <Mark>React Native</Mark> ve <Mark>TypeScript</Mark> ile uçtan
                 uca, cross-platform mobil uygulamalar geliştiriyorum. Mimari
                 tasarımdan EAS Build ile <Mark>CI/CD</Mark> süreçlerine ve
                 mağaza dağıtımlarına kadar yazılım yaşam döngüsünün tüm
                 aşamalarında aktif rol alıyorum.
               </p>
-              <p className="max-w-2xl text-lg leading-relaxed text-zinc-300">
+              <p className="max-w-2xl text-base leading-relaxed text-zinc-300 sm:text-lg">
                 Mobil geliştirmenin yanı sıra veri bilimi ve{" "}
                 <Mark>makine öğrenmesi</Mark> (Python, Pandas, Scikit-learn)
                 alanında çözümler üretiyor; GCP, AWS ve Oracle{" "}
@@ -227,7 +230,7 @@ export function About() {
               </p>
             </div>
 
-            <div className="mt-auto flex items-center justify-between gap-4 border-t border-white/10 pt-6">
+            <div className="mt-auto flex flex-col gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-2.5">
                 <span
                   className="h-3 w-3 shrink-0 animate-pulse rounded-full bg-green-500"
@@ -275,8 +278,8 @@ export function About() {
           </BentoCard>
 
           <BentoCard className="md:col-span-3 lg:col-span-5">
-            <div className="pointer-events-none absolute inset-y-4 right-[-8%] w-[52%] opacity-60 sm:w-[44%]">
-              <NetworkGraph />
+            <div className="pointer-events-none absolute inset-y-4 right-[-8%] hidden w-[52%] opacity-60 lg:block lg:w-[44%]">
+              {showGraph ? <NetworkGraph /> : null}
             </div>
             <div className="relative max-w-[22rem] lg:max-w-[24rem]">
               <CardKicker>03 — Bulut</CardKicker>

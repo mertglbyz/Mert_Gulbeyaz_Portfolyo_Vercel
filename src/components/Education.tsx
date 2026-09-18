@@ -19,12 +19,12 @@ const schools = [
 
 export function Education() {
   return (
-    <section className="relative scroll-mt-24 px-5 py-24 sm:px-8 lg:py-28">
+    <section className="relative scroll-mt-24 px-5 py-16 sm:px-8 sm:py-24 lg:py-28">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       <div className="mx-auto max-w-6xl">
         <motion.div
           className="mb-10 sm:mb-14"
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.8 }}
           transition={{ duration: 0.7, ease }}
@@ -41,7 +41,7 @@ export function Education() {
           {schools.map((school, index) => (
             <motion.li
               key={school.name}
-              initial={{ opacity: 0, y: 18 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.6 }}
               transition={{ duration: 0.65, delay: index * 0.08, ease }}

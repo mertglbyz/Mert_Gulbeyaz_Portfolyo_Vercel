@@ -51,7 +51,13 @@ function TimelineEntry({
   index: number;
 }) {
   const ref = useRef<HTMLLIElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.25, margin: "0px 0px -12% 0px" });
+  const mounted = useMounted();
+  const inView = useInView(ref, {
+    once: true,
+    amount: 0.25,
+    margin: "0px 0px -12% 0px",
+  });
+  const visible = mounted && inView;
 
   return (
     <li
@@ -61,36 +67,23 @@ function TimelineEntry({
       <time
         className={cn(
           "hidden pt-8 font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase transition-colors duration-500 sm:block",
-          inView && "text-accent-soft",
+          visible && "text-accent-soft",
         )}
       >
         {item.period}
       </time>
 
       <div className="relative flex justify-center">
-        <motion.span
+        <span
           aria-hidden
-          className="relative z-10 mt-8 h-3 w-3 rounded-full border border-accent bg-background"
-          initial={{ scale: 0.4, opacity: 0 }}
-          animate={
-            inView
-              ? {
-                  scale: 1,
-                  opacity: 1,
-                  boxShadow: "0 0 18px rgba(91, 140, 255, 0.7)",
-                }
-              : { scale: 0.4, opacity: 0.35 }
-          }
-          transition={{ duration: 0.45, ease }}
+          className={cn(
+            "relative z-10 mt-8 h-3 w-3 rounded-full border border-accent bg-background transition-[box-shadow] duration-500",
+            visible && "shadow-[0_0_18px_rgba(91,140,255,0.7)]",
+          )}
         />
       </div>
 
-      <motion.article
-        className="mb-8 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl transition-[border-color,background-color,box-shadow] duration-500 hover:border-accent/40 hover:bg-accent/[0.08] hover:shadow-[0_0_55px_-12px_rgba(91,140,255,0.55)] sm:mb-10 sm:p-7"
-        initial={{ opacity: 0, y: 28 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
-        transition={{ duration: 0.7, ease, delay: 0.05 }}
-      >
+      <article className="mb-8 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl transition-[border-color,background-color,box-shadow,opacity,transform] duration-500 hover:border-accent/40 hover:bg-accent/[0.08] hover:shadow-[0_0_55px_-12px_rgba(91,140,255,0.55)] sm:mb-10 sm:p-7">
         <time className="font-mono text-[11px] tracking-[0.16em] text-accent/80 uppercase sm:hidden">
           {item.period}
         </time>
@@ -101,17 +94,10 @@ function TimelineEntry({
           {item.role}
         </h3>
 
-        <motion.div
-          className="overflow-hidden"
-          initial={false}
-          animate={inView ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-          transition={{ duration: 0.75, ease, delay: 0.12 }}
-        >
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-[15px] sm:leading-8">
-            <HighlightedText text={item.detail} highlights={item.highlights} />
-          </p>
-        </motion.div>
-      </motion.article>
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-[15px] sm:leading-8">
+          <HighlightedText text={item.detail} highlights={item.highlights} />
+        </p>
+      </article>
     </li>
   );
 }
@@ -134,14 +120,14 @@ export function Experience() {
   return (
     <section
       id="deneyim"
-      className="relative scroll-mt-24 px-5 py-24 sm:px-8 lg:py-32"
+      className="relative scroll-mt-24 px-5 py-16 sm:px-8 sm:py-24 lg:py-32"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="relative mx-auto max-w-6xl">
         <motion.div
           className="mb-12 sm:mb-16"
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.8 }}
           transition={{ duration: 0.7, ease }}

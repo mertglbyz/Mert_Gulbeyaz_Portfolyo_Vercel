@@ -2,6 +2,7 @@
 
 import { useReducedMotion, motion } from "framer-motion";
 import { useMounted } from "@/lib/use-mounted";
+import { useMediaQuery } from "@/lib/use-media-query";
 
 const orbs = [
   {
@@ -27,7 +28,8 @@ const orbs = [
 export function MeshGradient() {
   const mounted = useMounted();
   const reduceMotion = useReducedMotion();
-  const live = mounted && !reduceMotion;
+  const desktop = useMediaQuery("(min-width: 1024px)");
+  const live = mounted && desktop && !reduceMotion;
 
   return (
     <div
@@ -46,25 +48,23 @@ export function MeshGradient() {
         }}
       />
 
-      {orbs.map((orb, index) => (
-        <motion.div
-          key={index}
-          className={orb.className}
-          animate={live ? orb.animate : undefined}
-          transition={
-            live
-              ? {
-                  duration: orb.duration,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }
-              : undefined
-          }
-        />
-      ))}
+      {live
+        ? orbs.map((orb, index) => (
+            <motion.div
+              key={index}
+              className={orb.className}
+              animate={orb.animate}
+              transition={{
+                duration: orb.duration,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          ))
+        : null}
 
       <div
-        className="absolute inset-0 opacity-70"
+        className="absolute inset-0 hidden opacity-70 md:block"
         style={{
           backgroundImage: `
             linear-gradient(to right, rgba(255,255,255,0.028) 1px, transparent 1px),

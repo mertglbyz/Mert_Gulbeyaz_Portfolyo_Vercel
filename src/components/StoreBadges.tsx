@@ -2,7 +2,7 @@ function AppStoreBadge() {
   return (
     <svg
       viewBox="0 0 165 50"
-      className="h-11 w-auto sm:h-12"
+      className="h-10 w-auto sm:h-12"
       aria-hidden
     >
       <rect
@@ -47,7 +47,7 @@ function PlayStoreBadge() {
   return (
     <svg
       viewBox="0 0 178 50"
-      className="h-11 w-auto sm:h-12"
+      className="h-10 w-auto sm:h-12"
       aria-hidden
     >
       <rect
@@ -100,7 +100,7 @@ export function StoreBadges({
   if (!appStore && !playStore) return null;
 
   return (
-    <div className="mt-8 flex flex-wrap items-center gap-3">
+    <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8">
       {appStore ? (
         <a
           href={appStore}

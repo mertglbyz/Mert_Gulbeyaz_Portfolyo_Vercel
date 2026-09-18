@@ -21,8 +21,8 @@ function ArrowButton({
       aria-label={label}
       onClick={onClick}
       className={cn(
-        "absolute top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-foreground shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl transition-[border-color,background-color,transform] duration-300 hover:scale-105 hover:border-accent/50 hover:bg-white/15",
-        direction === "prev" ? "left-3" : "right-3",
+        "absolute top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-foreground shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl transition-[border-color,background-color,transform] duration-300 hover:scale-105 hover:border-accent/50 hover:bg-white/15 sm:h-11 sm:w-11",
+        direction === "prev" ? "left-2 sm:left-3" : "right-2 sm:right-3",
       )}
     >
       <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" aria-hidden>
@@ -82,7 +82,7 @@ export function ScreenshotCarousel({
           {visibleImages.map((src, imageIndex) => (
             <div
               key={src}
-              className="relative min-w-0 flex-[0_0_100%] px-12 py-6 sm:px-16 sm:py-8"
+              className="relative min-w-0 flex-[0_0_100%] px-8 py-4 sm:px-16 sm:py-8"
             >
               <div className="relative h-full overflow-hidden rounded-2xl border border-white/10 shadow-lg">
                 <Image
@@ -90,7 +90,9 @@ export function ScreenshotCarousel({
                   alt={`${altPrefix} ${imageIndex + 1}`}
                   fill
                   className="object-contain"
-                  sizes="(max-width: 1024px) 100vw, 52vw"
+                  sizes="(max-width: 1024px) 100vw, 560px"
+                  quality={70}
+                  priority={imageIndex === 0}
                 />
               </div>
             </div>

@@ -9,6 +9,7 @@ import {
   writeSavedScrollY,
 } from "@/lib/scroll-restore";
 import { scrollToHash } from "@/lib/scroll-to";
+import { useMediaQuery } from "@/lib/use-media-query";
 
 function RestoreScroll() {
   const lenis = useLenis();
@@ -105,6 +106,12 @@ function RestoreScroll() {
 }
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
+  const enableLenis = useMediaQuery("(pointer: fine) and (min-width: 1024px)");
+
+  if (!enableLenis) {
+    return children;
+  }
+
   return (
     <ReactLenis
       root
@@ -113,6 +120,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
         lerp: 0.075,
         duration: 1.4,
         smoothWheel: true,
+        syncTouch: false,
         anchors: false,
       }}
     >

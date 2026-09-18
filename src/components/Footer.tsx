@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const buttonClass =
-  "inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/10 px-5 py-3 text-sm tracking-wide text-foreground backdrop-blur-md transition-transform duration-300 hover:scale-105";
+  "inline-flex w-full items-center justify-center gap-2.5 rounded-full border border-white/10 bg-white/10 px-5 py-3 text-sm tracking-wide text-foreground backdrop-blur-md transition-transform duration-300 hover:scale-105 sm:w-auto";
 
 function MailIcon() {
   return (
@@ -49,13 +49,13 @@ export function Footer() {
   return (
     <footer
       id="iletisim"
-      className="relative flex scroll-mt-24 flex-col items-center justify-center overflow-hidden px-5 py-24 text-center sm:px-8 sm:py-28 lg:py-32"
+      className="relative flex scroll-mt-24 flex-col items-center justify-center overflow-hidden px-5 py-16 text-center sm:px-8 sm:py-28 lg:py-32"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.06),transparent_55%)]" />
 
       <motion.div
         className="relative mx-auto flex w-full max-w-5xl flex-col items-center justify-center"
-        initial={{ opacity: 0, y: 28 }}
+        initial={false}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: 0.8, ease }}
@@ -64,7 +64,7 @@ export function Footer() {
           Yeni bir proje mi düşünüyorsunuz?
         </h2>
 
-        <div className="mt-8 flex flex-row flex-wrap items-center justify-center gap-4">
+        <div className="mt-8 flex w-full max-w-md flex-col items-stretch justify-center gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
           <a href="mailto:gulbeyazm6@gmail.com" className={buttonClass}>
             <MailIcon />
             gulbeyazm6@gmail.com
