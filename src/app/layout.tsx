@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Syne } from "next/font/google";
 import { Providers } from "@/components/Providers";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { scrollRestoreBootScript } from "@/lib/scroll-restore";
 import "./globals.css";
 
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: scrollRestoreBootScript }}
         />
         <Providers>{children}</Providers>
+        <GoogleAnalytics />
       </body>
     </html>
   );

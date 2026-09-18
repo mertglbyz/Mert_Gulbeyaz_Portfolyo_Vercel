@@ -43,6 +43,7 @@ export function scrollToHash(href: string, lenis?: LenisLike) {
   const y = targetY(el, href, current);
 
   window.history.replaceState(null, "", href);
+  window.dispatchEvent(new Event("hashchange"));
 
   if (!useLenis || !lenis) {
     window.scrollTo({ top: y, behavior: "smooth" });
