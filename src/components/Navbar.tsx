@@ -46,62 +46,58 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      document.body.style.overflow = "";
+      return;
+    }
 
-    const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    lenis?.stop();
-
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
-
     return () => {
-      document.body.style.overflow = prevOverflow;
-      lenis?.start();
+      document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
     };
-  }, [open, lenis]);
+  }, [open]);
 
   const goTo = (href: string) => {
     setOpen(false);
     document.body.style.overflow = "";
-    lenis?.start();
-    window.setTimeout(() => {
-      scrollToHash(href, lenis);
-    }, 50);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scrollToHash(href, lenis);
+      });
+    });
   };
 
   const menu = (
-      <div
-        id="mobile-nav"
-        data-lenis-prevent
-        className="fixed inset-0 z-[100] h-svh w-full md:hidden"
-      >
-        <button
-          type="button"
-          aria-label="Menüyü kapat"
-          className="absolute inset-0 bg-zinc-950"
-          onClick={() => setOpen(false)}
-        />
-        <ul className="relative flex h-svh flex-col justify-center gap-8 px-8 pt-16">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                onClick={(event) => {
-                  event.preventDefault();
-                  goTo(link.href);
-                }}
-                className="font-display text-4xl tracking-tight text-foreground"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div
+      id="mobile-nav"
+      className="fixed inset-0 z-[100] flex flex-col bg-zinc-950 md:hidden"
+    >
+      <div className="h-16 shrink-0" />
+      <nav className="flex flex-1 flex-col overflow-y-auto px-5 pb-10">
+        {navLinks.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              goTo(link.href);
+            }}
+            className={cn(
+              "flex min-h-16 items-center border-b border-white/10 font-display text-[2rem] leading-none tracking-tight",
+              active === link.href ? "text-white" : "text-zinc-200",
+            )}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+    </div>
   );
 
   return (
@@ -111,8 +107,8 @@ export function Navbar() {
           className={cn(
             "border-b transition-[background-color,border-color,box-shadow] duration-300",
             scrolled || open
-              ? "border-white/10 bg-black/90 shadow-[0_10px_40px_rgba(0,0,0,0.35)] md:bg-black/55 md:backdrop-blur-xl"
-              : "border-white/5 bg-black/80 md:border-transparent md:bg-transparent",
+              ? "border-white/10 bg-black"
+              : "border-white/5 bg-black/90 md:border-transparent md:bg-transparent",
           )}
         >
           <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-20 sm:px-6">

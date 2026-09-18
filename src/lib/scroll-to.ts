@@ -15,6 +15,11 @@ type LenisLike = {
   ) => void;
 } | null | undefined;
 
+function canUseLenis(lenis?: LenisLike) {
+  if (!lenis || typeof window === "undefined") return false;
+  return window.matchMedia("(pointer: fine) and (min-width: 1024px)").matches;
+}
+
 function targetY(el: HTMLElement, href: string, currentScroll: number) {
   return Math.max(
     0,
@@ -31,14 +36,24 @@ export function scrollToHash(href: string, lenis?: LenisLike) {
   if (!el) return;
 
   const offset = scrollOffsetFor(href);
-  const current =
-    typeof lenis?.scroll === "number" ? lenis.scroll : window.scrollY;
+  const useLenis = canUseLenis(lenis);
+  const current = useLenis && typeof lenis?.scroll === "number"
+    ? lenis.scroll
+    : window.scrollY;
   const y = targetY(el, href, current);
 
   window.history.replaceState(null, "", href);
 
-  if (!lenis) {
+  if (!useLenis || !lenis) {
     window.scrollTo({ top: y, behavior: "smooth" });
+    window.setTimeout(() => {
+      const leftover = el.getBoundingClientRect().top + offset;
+      if (Math.abs(leftover) <= 8) return;
+      window.scrollTo({
+        top: Math.max(0, leftover + window.scrollY),
+        behavior: "auto",
+      });
+    }, 400);
     return;
   }
 

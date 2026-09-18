@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactLenis, useLenis } from "lenis/react";
-import { useEffect, useMemo, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import {
   isReloadNavigation,
   readSavedScrollY,
@@ -107,20 +107,23 @@ function RestoreScroll() {
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
   const enableLenis = useMediaQuery("(pointer: fine) and (min-width: 1024px)");
-  const options = useMemo(
-    () => ({
-      autoRaf: enableLenis,
-      lerp: enableLenis ? 0.075 : 1,
-      duration: enableLenis ? 1.4 : 0,
-      smoothWheel: enableLenis,
-      syncTouch: false,
-      anchors: false,
-    }),
-    [enableLenis],
-  );
+
+  if (!enableLenis) {
+    return <>{children}</>;
+  }
 
   return (
-    <ReactLenis root options={options}>
+    <ReactLenis
+      root
+      options={{
+        autoRaf: true,
+        lerp: 0.075,
+        duration: 1.4,
+        smoothWheel: true,
+        syncTouch: false,
+        anchors: false,
+      }}
+    >
       <RestoreScroll />
       {children}
     </ReactLenis>

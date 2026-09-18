@@ -8,6 +8,6 @@ export const navLinks = [
 export type NavLink = (typeof navLinks)[number];
 
 export function scrollOffsetFor(href: string) {
-  if (href === "#projeler" || href === "#top") return 0;
-  return -88;
+  if (href === "#top") return 0;
+  return -72;
 }
