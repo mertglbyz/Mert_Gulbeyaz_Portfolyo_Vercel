@@ -1,0 +1,38 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "next-dev",
+            "type": "shell",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${workspaceFolder}\\scripts\\start-dev.ps1\"",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "next",
+                "pattern": {
+                    "regexp": "^$"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Starting Next\\.js",
+                    "endsPattern": "- Local:"
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        }
+    ]
+}
